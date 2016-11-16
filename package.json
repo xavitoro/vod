@@ -1,0 +1,20 @@
+{
+  "name": "vod",
+  "version": "0.0.0",
+  "description": "vod platform containing food content",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ASJvine/vod.git"
+  },
+  "author": "Alexandre Serra Jaumot",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ASJvine/vod/issues"
+  },
+  "homepage": "https://github.com/ASJvine/vod#readme"
+}
