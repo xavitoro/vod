@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>New Video</title>
+  <link href="https://bootswatch.com/yeti/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+  <div class="container well" style="margin-top: 50px">
+    <form id="create-new-video-recipe-form">
+      <fieldset>
+        <legend>Add a new Videos to Keychn VOD Platform</legend>
+      </fieldset>
+      <p>Recipe Text Details</p>
+      <div class="form-group col-md-12">
+        <input class="form-control" name="recipeTitle" placeholder="Recipe title" type="text">
+      </div>
+      <div class="form-group col-md-12">
+        <input class="form-control" name="recipeSlug" placeholder="Recipe slug" type="text">
+      </div>
+      <div class="form-group col-md-12">
+        <input class="form-control" name="recipeDescription" placeholder="Recipe description" type="text">
+      </div>
+      <p>Recipe Category</p>
+      <select class="form-control" name="selectRecipeCategory" >
+        <option value="default" selected>Choose one category</option>
+        <option value="spanish">Spanish</option>
+        <option value="asian" >Asian</option>
+        <option value="mexican" >Mexican</option>
+      </select>
+      <!--
+      <p>Recipe Tags (select multiple)</p>
+      <select  class="form-control" name="selectRecipeTags" multiple>
+        <option value="default" selected>Choose one or more tags</option>
+        <option value="healthy" >healthy</option>
+        <option value="veggie" >veggie</option>
+        <option value="baked" >baked</option>
+        <option value="grilled" >grilled</option>
+        <option value="roasted" >roasted</option>
+      </select>
+      <p> Cooking Path (select multiple)</p>
+      <select class="form-control" name="selectLearningPath" multiple>
+        <option value="default" selected>Choose one or more learning paths </option>
+        <option value="spanish-basics">Learn the Spanish basics</option>
+        <option value="modern-techniques-ferran" >Learn the modern techniques with Ferran</option>
+        <option value="french-basics" >Learn the French basics</option>
+        <option value="italian-basics" >Learn the Italian basics</option>
+      </select>
+      <p>Recipe Type</p>
+      <select class = "form-control" name="selectRecipeType">
+        <option value="default" selected>Choose one recipe type</option>
+        <option value="starter-course">Starter</option>
+        <option value="main-course" >Main</option>
+        <option value="dessert-course" >Dessert</option>
+      </select>
+      <p>Recipe Pictures URLs</p>
+      <div class="form-group col-md-12">
+        <input class="form-control" name="recipeIngredientsPicture" placeholder="Recipe ingredients picture" type="text">
+      </div>
+      <div class="form-group col-md-12">
+        <input class="form-control" name="recipeFinalPicture" placeholder="Recipe final picture" type="text">
+      </div>
+      <p>Recipe Video URLs</p>
+      <div class="form-group col-md-12">
+        <input class="form-control" name="recipeThumbnail" placeholder="Recipe thumbnail for the video" type="text">
+      </div>
+      <div class="form-group col-md-12">
+        <input class="form-control" name="recipeVideoPreview" placeholder="Recipe video preview" type="text">
+      </div>
+      <div class="form-group col-md-12">
+        <input class="form-control" name="recipeVideoFull" placeholder="Recipe video full-length" type="text">
+      </div>
+      <p>Recipe Detailed Information</p>
+      <div class="form-group col-md-12">
+        <input class="form-control" name="recipeLength" placeholder="Recipe length (minutes)" type="number">
+      </div>
+      <div class="form-group col-md-12">
+        <input class="form-control" name="recipeServings" placeholder="Recipe servings (people)" type="number">
+      </div>
+      <p>Recipe Difficulty</p>
+      <select class = "form-control" name="selectRecipeDifficulty">
+        <option value="default" selected>Choose the difficulty</option>
+        <option value="recipe-difficulty-easy">Easy</option>
+        <option value="recipe-difficulty-easy">Medium</option>
+        <option value="recipe-difficulty-easy">Hard</option>
+      </select>
+      <p>Author Information</p>
+      <div class="form-group col-md-12">
+        <input class="form-control" name="authorThumbnail" placeholder="Author thumbnail URL" type="text">
+      </div>
+      <div class="form-group col-md-12">
+        <input class="form-control" name="authorName" placeholder="Author name" type="text">
+      </div>
+      <div class="form-group col-md-12">
+        <input class="form-control" name="authorDescription" placeholder="Author description" type="text">
+      </div>
+
+      <p>Recipe Ingredients </p>
+      <div id="addRecipeIngredient" class="form-group col-md-12">
+        <p>
+          <input type="text" id="p_new_qty0" name="p_new_qty0" placeholder="Quantity ingredient" />
+          <input type="text" id="p_new_ingredient0" placeholder="Ingredient" />
+          <a href="#" id="addNewIngredient">Add Ingredient</a>
+        </p>
+      </div>
+
+      <p>Recipe Steps </p>
+      <div id="addRecipeStep" class="form-group col-md-12">
+        <p>
+          <h4>Step</h4>
+          <input type="text" id="p_new_step_picture" class="form-group col-md-12" placeholder="Picture URL" />
+          <input type="text" id="p_new_step_description" class="form-group col-md-12"  placeholder="Description" />
+          <input type="text" id="p_new_step_tips" class="form-group col-md-12"  placeholder="Tip" />
+          <a href="#" id="addNewStep">Add Step</a>
+        </p>
+      </div>
+-->
+      <div>
+        <input class="btn btn-primary" id="submit-button" type="submit" value="Add New Recipe">
+      </div>
+
+    </form>
+    <div class="content">
+      <ul class="recipe-list"></ul>
+    </div>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script>
+  <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"></script>
+  <script src="addIngredient.js"></script>
+  <script src="addStep.js"></script>
+  <script src="trial.js"></script>
+</body>
+</html>
