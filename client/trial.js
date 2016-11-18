@@ -443,29 +443,41 @@ function ready(fn) {
   }
 }
 
-
-{/* <p>Recipe Steps </p>
-<div id="addRecipeStep" class="form-group col-md-12">
-  <p>
-    <h4>Step</h4>
-    <input type="text" id="p_new_step_picture" class="form-group col-md-12" placeholder="Picture URL" />
-    <input type="text" id="p_new_step_description" class="form-group col-md-12"  placeholder="Description" />
-    <input type="text" id="p_new_step_tips" class="form-group col-md-12"  placeholder="Tip" />
-    <a href="#" id="addNewStep">Add Step</a>
-  </p>
-</div> */}
-
 var getValues = function(){
   var recipeTitle = document.querySelector('input[name=recipeTitle]').value;
   var recipeSlug = document.querySelector('input[name=recipeSlug]').value;
   var recipeDescription = document.querySelector('input[name=recipeDescription]').value;
-  // var recipeCategory = document.querySelector('input[name=selectRecipeCategory]').value;
+
+  var messageNotSelected = "Selection to be done"
+  var recipeCategory = $('select[name=selectRecipeCategory] :selected').text();
+
+  // TO-DO maybe change the logic of messageNotSelected
+  var recipeTags = [];
+  $('select[name=selectRecipeTags]').change(function() {
+    console.log("Changing the Tags");
+    console.log($( "select[name=selectRecipeTags] option:selected" ));
+    $( "select[name=selectRecipeTags] option:selected" ).each(function() {
+      var tag = $( this ).text() != 'default' ? recipeTags.push(tag) : recipeTags.push(messageNotSelected);
+    });
+  }).change();
+
+  var recipeLearningPath = [];
+  $('select[name=selectLearningPath]').change(function() {
+    console.log("Changing the Paths");
+    $( "select[name=selectLearningPath] option:selected" ).each(function() {
+      var path = $( this ).text() != 'default' ? recipeLearningPath.push(path) : recipeLearningPath.push(messageNotSelected);
+    });
+  }).change();
 
 
   document.querySelector('input[name=recipeTitle]').value = '';
   document.querySelector('input[name=recipeSlug]').value = '';
   document.querySelector('input[name=recipeDescription]').value = '';
+  $('select[name=selectRecipeCategory]').val('default');
+  $('select[name=selectRecipeTags]').val('default');
+  $('select[name=selectLearningPath]').val('default');
   // document.querySelector('input[name=selectRecipeCategory]').value = 'default'
+
 
 
 
@@ -489,20 +501,20 @@ var getValues = function(){
     recipeTitle: recipeTitle,
     recipeSlug: recipeSlug,
     recipeDescription: recipeDescription,
-    recipeCategory: recipeCategory
-
-    // step: { picture: stepPicture, description: stepDescription, tips: stepTips }
+    recipeCategory: recipeCategory,
+    recipeTags: recipeTags,
+    recipeLearningPath: recipeLearningPath
 
   };
 };
 
 var recipeTemplate = '<h3><%= recipeTitle %></h3>'
                       + '<h2><%= recipeSlug %></h2>'
-                      + '<h2><%= recipeDescription %></h2>';
-// +
-//   '<h3><%= pride %></h3>'+
-//   '<small>age: <%= age %></small> '+
-//   '<small><%= gender %></small>';
+                      + '<h2><%= recipeDescription %></h2>'
+                      + '<h2><%= recipeCategory %></h2>'
+                      + '<h2><%= recipeTags %></h2>'
+                      + '<h2><%= recipeLearningPath %></h2>';
+
 
 var recipes = [];
 
