@@ -444,6 +444,8 @@ function ready(fn) {
 }
 
 var getValues = function(){
+
+  // GET the values from the different placeholders
   var recipeTitle = document.querySelector('input[name=recipeTitle]').value;
   var recipeSlug = document.querySelector('input[name=recipeSlug]').value;
   var recipeDescription = document.querySelector('input[name=recipeDescription]').value;
@@ -451,51 +453,88 @@ var getValues = function(){
   var messageNotSelected = "Selection to be done"
   var recipeCategory = $('select[name=selectRecipeCategory] :selected').text();
 
-  // TO-DO maybe change the logic of messageNotSelected
   var recipeTags = [];
-  $('select[name=selectRecipeTags]').change(function() {
-    console.log("Changing the Tags");
-    console.log($( "select[name=selectRecipeTags] option:selected" ));
-    $( "select[name=selectRecipeTags] option:selected" ).each(function() {
-      var tag = $( this ).text() != 'default' ? recipeTags.push(tag) : recipeTags.push(messageNotSelected);
-    });
-  }).change();
+  $( "select[name=selectRecipeTags] option:selected" ).each(function() {
+    recipeTags.push($(this).val())
+  });
 
-  var recipeLearningPath = [];
-  $('select[name=selectLearningPath]').change(function() {
-    console.log("Changing the Paths");
-    $( "select[name=selectLearningPath] option:selected" ).each(function() {
-      var path = $( this ).text() != 'default' ? recipeLearningPath.push(path) : recipeLearningPath.push(messageNotSelected);
-    });
-  }).change();
+  var recipeLearningPath = [];
+  $( "select[name=selectLearningPath] option:selected" ).each(function() {
+    recipeLearningPath.push($(this).val())
+  });
 
+  var recipeType = $('select[name=selectRecipeType] :selected').text();
 
+  var recipeIngredientsPicture = document.querySelector('input[name=recipeIngredientsPicture]').value;
+  var recipeFinalPicture = document.querySelector('input[name=recipeFinalPicture]').value;
+
+  var recipeThumbnail = document.querySelector('input[name=recipeThumbnail]').value;
+  var recipeVideoPreview = document.querySelector('input[name=recipeVideoPreview]').value;
+  var recipeVideoFull = document.querySelector('input[name=recipeVideoFull]').value;
+
+  var recipeLength = document.querySelector('input[name=recipeLength]').value;
+  var selectRecipeDifficulty = $('select[name=selectRecipeDifficulty] :selected').text();
+  var recipeServings = document.querySelector('input[name=recipeServings]').value;
+
+  var authorThumbnail = document.querySelector('input[name=authorThumbnail]').value;
+  var authorName = document.querySelector('input[name=authorName]').value;
+  var authorDescription = document.querySelector('input[name=authorDescription]').value;
+
+  var recipeIngredientsList=[];
+  $("#ingredientList li").each(function() {
+      var ingredient = $(this).find('input[name=p_new_qty]').val();
+      var qty = $(this).find('input[name=p_new_qty_unit]').val();
+      var qtyUnit = $(this).find('input[name=p_new_ingredient]').val();
+
+      ingredient = { ingredient: ingredient, quantity: qty, quantityUnit: qtyUnit};
+      console.log("The ingredient object is >> ", ingredient);
+      recipeIngredientsList.push(ingredient);
+  });
+
+  var recipeStepsList=[];
+  $("#stepList li").each(function() {
+      var stepPicture = $(this).find('input[name=p_new_step_picture]').val();
+      var stepDescription = $(this).find('input[name=p_new_step_description]').val();
+      var stepTips = $(this).find('input[name=p_new_step_tips]').val();
+
+      step = { stepPicture: stepPicture, stepDescription: stepDescription, stepTips: stepTips};
+      console.log("The step object is >> ", step);
+      recipeStepsList.push(step);
+  });
+
+  // SET the values to defaults once Submit is clicked
   document.querySelector('input[name=recipeTitle]').value = '';
   document.querySelector('input[name=recipeSlug]').value = '';
   document.querySelector('input[name=recipeDescription]').value = '';
   $('select[name=selectRecipeCategory]').val('default');
   $('select[name=selectRecipeTags]').val('default');
   $('select[name=selectLearningPath]').val('default');
-  // document.querySelector('input[name=selectRecipeCategory]').value = 'default'
+  $('select[name=selectRecipeType]').val('default');
 
+  document.querySelector('input[name=recipeIngredientsPicture]').value = '';
+  document.querySelector('input[name=recipeFinalPicture]').value = '';
 
+  document.querySelector('input[name=recipeThumbnail]').value = '';
+  document.querySelector('input[name=recipeVideoPreview]').value = '';
+  document.querySelector('input[name=recipeVideoFull]').value = '';
 
+  document.querySelector('input[name=recipeLength]').value = '';
+  $('select[name=selectRecipeDifficulty]').val('default');
+  document.querySelector('input[name=recipeServings]').value = '';
 
-  // var stepPicture = document.querySelector('input[id=p_new_step_picture]').value;
-  // console.log(stepPicture);
-  // var stepDescription = document.querySelector('input[id=p_new_step_description]').value;
-  // var stepTips = document.querySelector('input[id=p_new_step_tips]').value;
-  // // var age = document.querySelector('input[type=number').value;
-  // // var gender = document.querySelector('select');
-  // // gender = gender.options[gender.selectedIndex].value;
-  //
-  //
-  //
-  // document.querySelector('input[id=p_new_step_picture]').value = '';
-  // document.querySelector('input[id=p_new_step_description]').value = '';
-  // document.querySelector('input[id=p_new_step_tips]').value = '';
-  // // document.querySelector('input[type=number').value = '';
+  document.querySelector('input[name=authorThumbnail]').value = '';
+  document.querySelector('input[name=authorName]').value = '';
+  document.querySelector('input[name=authorDescription]').value = '';
 
+  $('#ingredientList li').slice(1).remove();
+  document.querySelector('input[name=p_new_qty]').value != '' ? '' : console.log("empty already!");;
+  document.querySelector('input[name=p_new_qty_unit]').value = '';
+  document.querySelector('input[name=p_new_ingredient]').value = '';
+
+  $('#stepList li').slice(1).remove();
+  document.querySelector('input[name=p_new_step_picture]').value = '';
+  document.querySelector('input[name=p_new_step_description]').value = '';
+  document.querySelector('input[name=p_new_step_tips]').value = '';
 
   return {
     recipeTitle: recipeTitle,
@@ -503,7 +542,15 @@ var getValues = function(){
     recipeDescription: recipeDescription,
     recipeCategory: recipeCategory,
     recipeTags: recipeTags,
-    recipeLearningPath: recipeLearningPath
+    recipeLearningPath: recipeLearningPath,
+    recipeType: recipeType,
+    recipePicture: {ingredientsPicture: recipeIngredientsPicture, finalPicture:recipeFinalPicture },
+    recipeVideo: {videoThumbnail: recipeThumbnail, videoPreview:recipeVideoPreview, videoFull: recipeVideoFull },
+    recipeDetailedInformation: {recipeLength: recipeLength, recipeDifficulty:selectRecipeDifficulty, recipeServings: recipeServings },
+    authorInformation: {authorThumbnail: authorThumbnail, authorName:authorName, authorDescription: authorDescription },
+    recipeIngredientsList: recipeIngredientsList,
+    recipeStepsList:recipeStepsList
+
 
   };
 };
@@ -513,7 +560,8 @@ var recipeTemplate = '<h3><%= recipeTitle %></h3>'
                       + '<h2><%= recipeDescription %></h2>'
                       + '<h2><%= recipeCategory %></h2>'
                       + '<h2><%= recipeTags %></h2>'
-                      + '<h2><%= recipeLearningPath %></h2>';
+                      + '<h2><%= recipeLearningPath %></h2>'
+                      + '<h2><%= recipeType %></h2>';
 
 
 var recipes = [];

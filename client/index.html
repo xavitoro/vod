@@ -48,7 +48,7 @@
         <option value="french-basics" >Learn the French basics</option>
         <option value="italian-basics" >Learn the Italian basics</option>
       </select>
-      <!--
+
       <p>Recipe Type</p>
       <select class = "form-control" name="selectRecipeType">
         <option value="default" selected>Choose one recipe type</option>
@@ -56,6 +56,7 @@
         <option value="main-course" >Main</option>
         <option value="dessert-course" >Dessert</option>
       </select>
+
       <p>Recipe Pictures URLs</p>
       <div class="form-group col-md-12">
         <input class="form-control" name="recipeIngredientsPicture" placeholder="Recipe ingredients picture" type="text">
@@ -73,12 +74,13 @@
       <div class="form-group col-md-12">
         <input class="form-control" name="recipeVideoFull" placeholder="Recipe video full-length" type="text">
       </div>
+
       <p>Recipe Detailed Information</p>
       <div class="form-group col-md-12">
-        <input class="form-control" name="recipeLength" placeholder="Recipe length (minutes)" type="number">
+        <input class="form-control" name="recipeLength" placeholder="Recipe length (minutes)" type="number" min="5">
       </div>
       <div class="form-group col-md-12">
-        <input class="form-control" name="recipeServings" placeholder="Recipe servings (people)" type="number">
+        <input class="form-control" name="recipeServings" placeholder="Recipe servings (people)" type="number" min="1">
       </div>
       <p>Recipe Difficulty</p>
       <select class = "form-control" name="selectRecipeDifficulty">
@@ -87,6 +89,7 @@
         <option value="recipe-difficulty-easy">Medium</option>
         <option value="recipe-difficulty-easy">Hard</option>
       </select>
+
       <p>Author Information</p>
       <div class="form-group col-md-12">
         <input class="form-control" name="authorThumbnail" placeholder="Author thumbnail URL" type="text">
@@ -99,25 +102,26 @@
       </div>
 
       <p>Recipe Ingredients </p>
-      <div id="addRecipeIngredient" class="form-group col-md-12">
-        <p>
-          <input type="text" id="p_new_qty0" name="p_new_qty0" placeholder="Quantity ingredient" />
-          <input type="text" id="p_new_ingredient0" placeholder="Ingredient" />
+      <ol id="ingredientList" class="form-group col-md-12">
+        <li>
+          <input type="text"  name="p_new_qty" placeholder="Quantity ingredient (e.g. 2)" />
+          <input type="text"  name="p_new_qty_unit" placeholder="Quantity unit (e.g. slice)" />
+          <input type="text" name="p_new_ingredient" placeholder="Ingredient (e.g. bread)" />
           <a href="#" id="addNewIngredient">Add Ingredient</a>
-        </p>
-      </div>
+        </li>
+      </ol>
 
       <p>Recipe Steps </p>
-      <div id="addRecipeStep" class="form-group col-md-12">
-        <p>
+      <ol id="stepList" class="form-group col-md-12">
+        <li>
           <h4>Step</h4>
-          <input type="text" id="p_new_step_picture" class="form-group col-md-12" placeholder="Picture URL" />
-          <input type="text" id="p_new_step_description" class="form-group col-md-12"  placeholder="Description" />
-          <input type="text" id="p_new_step_tips" class="form-group col-md-12"  placeholder="Tip" />
+          <input type="text" name="p_new_step_picture" class="form-group col-md-12" placeholder="Picture URL" />
+          <input type="text" name="p_new_step_description" class="form-group col-md-12"  placeholder="Description" />
+          <input type="text" name="p_new_step_tips" class="form-group col-md-12"  placeholder="Tip" />
           <a href="#" id="addNewStep">Add Step</a>
-        </p>
-      </div>
--->
+        </li>
+      </ol>
+
       <div>
         <input class="btn btn-primary" id="submit-button" type="submit" value="Add New Recipe">
       </div>
