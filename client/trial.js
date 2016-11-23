@@ -434,195 +434,200 @@ return Yn})):Mn&&qn?Vn?(qn.exports=Yn)._=Yn:Mn._=Yn:Zn._=Yn}).call(this);
 
 
 
-
 function ready(fn) {
-  if (document.readyState != 'loading'){
-    fn();
-  } else {
-    document.addEventListener('DOMContentLoaded', fn);
-  }
+    "use strict";
+    if (document.readyState !== "loading") {
+        fn();
+    } else {
+        document.addEventListener("DOMContentLoaded", fn);
+    }
 }
 
-var getValues = function(){
+var getValues = function () {
+    "use strict";
+    // GET the values from the different placeholders
+    var recipeTitle = document.querySelector("input[name=recipeTitle]").value;
+    var recipeSlug = document.querySelector("input[name=recipeSlug]").value;
 
-  // GET the values from the different placeholders
-  var recipeTitle = document.querySelector('input[name=recipeTitle]').value;
-  var recipeSlug = document.querySelector('input[name=recipeSlug]').value;
-  var recipeDescription = document.querySelector('input[name=recipeDescription]').value;
+    var recipeDescription = document.querySelector("input[name=recipeDescription]").value;
 
-  var messageNotSelected = "Selection to be done"
-  var recipeCategory = $('select[name=selectRecipeCategory] :selected').text();
+    var recipeCategory = $("select[name=selectRecipeCategory] :selected").text();
 
-  var recipeTags = [];
-  $( "select[name=selectRecipeTags] option:selected" ).each(function() {
-    recipeTags.push($(this).val())
-  });
+    var recipeTags = [];
+    $("select[name=selectRecipeTags] option:selected").each(function () {
+        recipeTags.push($(this).val());
+    });
 
-  var recipeLearningPath = [];
-  $( "select[name=selectLearningPath] option:selected" ).each(function() {
-    recipeLearningPath.push($(this).val())
-  });
+    var recipeLearningPath = [];
+    $("select[name=selectLearningPath] option:selected").each(function () {
+        recipeLearningPath.push($(this).val());
+    });
 
-  var recipeType = $('select[name=selectRecipeType] :selected').text();
+    var recipeType = $("select[name=selectRecipeType] :selected").text();
 
-  var recipeIngredientsPicture = document.querySelector('input[name=recipeIngredientsPicture]').value;
-  var recipeFinalPicture = document.querySelector('input[name=recipeFinalPicture]').value;
+    var recipeIngredientsPicture = document.querySelector("input[name=recipeIngredientsPicture]").value;
+    var recipeFinalPicture = document.querySelector("input[name=recipeFinalPicture]").value;
 
-  var recipeThumbnail = document.querySelector('input[name=recipeThumbnail]').value;
-  var recipeVideoPreview = document.querySelector('input[name=recipeVideoPreview]').value;
-  var recipeVideoFull = document.querySelector('input[name=recipeVideoFull]').value;
+    var recipeThumbnail = document.querySelector("input[name=recipeThumbnail]").value;
+    var recipeVideoPreview = document.querySelector("input[name=recipeVideoPreview]").value;
+    var recipeVideoFull = document.querySelector("input[name=recipeVideoFull]").value;
 
-  var recipeLength = document.querySelector('input[name=recipeLength]').value;
-  var selectRecipeDifficulty = $('select[name=selectRecipeDifficulty] :selected').text();
-  var recipeServings = document.querySelector('input[name=recipeServings]').value;
+    var recipeLength = document.querySelector("input[name=recipeLength]").value;
+    var selectRecipeDifficulty = $("select[name=selectRecipeDifficulty] :selected").text();
+    var recipeServings = document.querySelector("input[name=recipeServings]").value;
 
-  var authorThumbnail = document.querySelector('input[name=authorThumbnail]').value;
-  var authorName = document.querySelector('input[name=authorName]').value;
-  var authorDescription = document.querySelector('input[name=authorDescription]').value;
+    var authorThumbnail = document.querySelector("input[name=authorThumbnail]").value;
+    var authorName = document.querySelector("input[name=authorName]").value;
+    var authorDescription = document.querySelector("input[name=authorDescription]").value;
 
-  var recipeIngredientsList=[];
-  $("#ingredientList li").each(function() {
-      var ingredient = $(this).find('input[name=p_new_qty]').val();
-      var qty = $(this).find('input[name=p_new_qty_unit]').val();
-      var qtyUnit = $(this).find('input[name=p_new_ingredient]').val();
+    var recipeIngredientsList = [];
+    $("#ingredientList li").each(function () {
+        var ingredient = $(this).find("input[name=p_new_qty]").val();
+        var qty = $(this).find("input[name=p_new_qty_unit]").val();
+        var qtyUnit = $(this).find("input[name=p_new_ingredient]").val();
 
-      ingredient = { ingredient: ingredient, quantity: qty, quantityUnit: qtyUnit};
-      console.log("The ingredient object is >> ", ingredient);
-      recipeIngredientsList.push(ingredient);
-  });
+        ingredient = {ingredient: ingredient, quantity: qty, quantityUnit: qtyUnit};
+        //console.log("The ingredient object is >> ", ingredient);
+        recipeIngredientsList.push(ingredient);
+    });
 
-  var recipeStepsList=[];
-  $("#stepList li").each(function() {
-      var stepPicture = $(this).find('input[name=p_new_step_picture]').val();
-      var stepDescription = $(this).find('input[name=p_new_step_description]').val();
-      var stepTips = $(this).find('input[name=p_new_step_tips]').val();
+    var recipeStepsList = [];
+    $("#stepList li").each(function () {
+        var stepPicture = $(this).find("input[name=p_new_step_picture]").val();
+        var stepDescription = $(this).find("input[name=p_new_step_description]").val();
+        var stepTips = $(this).find("input[name=p_new_step_tips]").val();
 
-      step = { stepPicture: stepPicture, stepDescription: stepDescription, stepTips: stepTips};
-      console.log("The step object is >> ", step);
-      recipeStepsList.push(step);
-  });
+        var step = {stepPicture: stepPicture, stepDescription: stepDescription, stepTips: stepTips};
+        //console.log("The step object is >> ", step);
+        recipeStepsList.push(step);
+    });
 
-  // SET the values to defaults once Submit is clicked
-  document.querySelector('input[name=recipeTitle]').value = '';
-  document.querySelector('input[name=recipeSlug]').value = '';
-  document.querySelector('input[name=recipeDescription]').value = '';
-  $('select[name=selectRecipeCategory]').val('default');
-  $('select[name=selectRecipeTags]').val('default');
-  $('select[name=selectLearningPath]').val('default');
-  $('select[name=selectRecipeType]').val('default');
+    // SET the values to defaults once Submit is clicked
+    document.querySelector("input[name=recipeTitle]").value = "";
+    document.querySelector("input[name=recipeSlug]").value = "";
+    document.querySelector("input[name=recipeDescription]").value = "";
+    $("select[name=selectRecipeCategory]").val("default");
+    $("select[name=selectRecipeTags]").val("default");
+    $("select[name=selectLearningPath]").val("default");
+    $("select[name=selectRecipeType]").val("default");
 
-  document.querySelector('input[name=recipeIngredientsPicture]').value = '';
-  document.querySelector('input[name=recipeFinalPicture]').value = '';
+    document.querySelector("input[name=recipeIngredientsPicture]").value = "";
+    document.querySelector("input[name=recipeFinalPicture]").value = "";
 
-  document.querySelector('input[name=recipeThumbnail]').value = '';
-  document.querySelector('input[name=recipeVideoPreview]').value = '';
-  document.querySelector('input[name=recipeVideoFull]').value = '';
+    document.querySelector("input[name=recipeThumbnail]").value = "";
+    document.querySelector("input[name=recipeVideoPreview]").value = "";
+    document.querySelector("input[name=recipeVideoFull]").value = "";
 
-  document.querySelector('input[name=recipeLength]').value = '';
-  $('select[name=selectRecipeDifficulty]').val('default');
-  document.querySelector('input[name=recipeServings]').value = '';
+    document.querySelector("input[name=recipeLength]").value = "";
+    $("select[name=selectRecipeDifficulty]").val("default");
+    document.querySelector("input[name=recipeServings]").value = "";
 
-  document.querySelector('input[name=authorThumbnail]').value = '';
-  document.querySelector('input[name=authorName]').value = '';
-  document.querySelector('input[name=authorDescription]').value = '';
+    document.querySelector("input[name=authorThumbnail]").value = "";
+    document.querySelector("input[name=authorName]").value = "";
+    document.querySelector("input[name=authorDescription]").value = "";
 
-  $('#ingredientList li').slice(1).remove();
-  document.querySelector('input[name=p_new_qty]').value != '' ? '' : console.log("empty already!");;
-  document.querySelector('input[name=p_new_qty_unit]').value = '';
-  document.querySelector('input[name=p_new_ingredient]').value = '';
+    $("#ingredientList li").slice(1).remove();
+    document.querySelector("input[name=p_new_qty]").value = "";
+    document.querySelector("input[name=p_new_qty_unit]").value = "";
+    document.querySelector("input[name=p_new_ingredient]").value = "";
 
-  $('#stepList li').slice(1).remove();
-  document.querySelector('input[name=p_new_step_picture]').value = '';
-  document.querySelector('input[name=p_new_step_description]').value = '';
-  document.querySelector('input[name=p_new_step_tips]').value = '';
+    $("#stepList li").slice(1).remove();
+    document.querySelector("input[name=p_new_step_picture]").value = "";
+    document.querySelector("input[name=p_new_step_description]").value = "";
+    document.querySelector("input[name=p_new_step_tips]").value = "";
 
-  return {
-    recipeTitle: recipeTitle,
-    recipeSlug: recipeSlug,
-    recipeDescription: recipeDescription,
-    recipeCategory: recipeCategory,
-    recipeTags: recipeTags,
-    recipeLearningPath: recipeLearningPath,
-    recipeType: recipeType,
-    recipePicture: {ingredientsPicture: recipeIngredientsPicture, finalPicture:recipeFinalPicture },
-    recipeVideo: {videoThumbnail: recipeThumbnail, videoPreview:recipeVideoPreview, videoFull: recipeVideoFull },
-    recipeDetailedInformation: {recipeLength: recipeLength, recipeDifficulty:selectRecipeDifficulty, recipeServings: recipeServings },
-    authorInformation: {authorThumbnail: authorThumbnail, authorName:authorName, authorDescription: authorDescription },
-    recipeIngredientsList: recipeIngredientsList,
-    recipeStepsList:recipeStepsList
+    return {
+        recipeTitle: recipeTitle,
+        recipeSlug: recipeSlug,
+        recipeDescription: recipeDescription,
+        recipeCategory: recipeCategory,
+        recipeTags: recipeTags,
+        recipeLearningPath: recipeLearningPath,
+        recipeType: recipeType,
+        recipePicture: {ingredientsPicture: recipeIngredientsPicture, finalPicture: recipeFinalPicture},
+        recipeVideo: {videoThumbnail: recipeThumbnail, videoPreview: recipeVideoPreview, videoFull: recipeVideoFull},
+        recipeDetailedInformation: {recipeLength: recipeLength, recipeDifficulty: selectRecipeDifficulty, recipeServings: recipeServings},
+        authorInformation: {authorThumbnail: authorThumbnail, authorName: authorName, authorDescription: authorDescription},
+        recipeIngredientsList: recipeIngredientsList,
+        recipeStepsList: recipeStepsList
 
 
-  };
+    };
 };
 
-var recipeTemplate = '<h3><%= recipeTitle %></h3>'
-                      + '<h2><%= recipeSlug %></h2>'
-                      + '<h2><%= recipeDescription %></h2>'
-                      + '<h2><%= recipeCategory %></h2>'
-                      + '<h2><%= recipeTags %></h2>'
-                      + '<h2><%= recipeLearningPath %></h2>'
-                      + '<h2><%= recipeType %></h2>';
+var recipeTemplate = "<h3><%= recipeTitle %></h3>"
+        + "<h2><%= recipeSlug %></h2>"
+        + "<h2><%= recipeDescription %></h2>"
+        + "<h2><%= recipeCategory %></h2>"
+        + "<h2><%= recipeTags %></h2>"
+        + "<h2><%= recipeLearningPath %></h2>"
+        + "<h2><%= recipeType %></h2>";
 
 
 var recipes = [];
 
-var makeTemplate = function(data) {
-  var li = document.createElement('li');
-  var recipeList = document.querySelector('.recipe-list');
-  var compiled = _.template(recipeTemplate);
-  var recipeHtml = compiled(data);
-  li.innerHTML = recipeHtml;
-  recipeList.insertBefore(li, recipeList.firstChild);
-}
-
-var updateRecipeList = function(){
-  var recipeData = recipes[recipes.length-1];
-  makeTemplate(recipeData);
-}
-
-var makeRecipeList = function() {
-  recipes.forEach(function(recipe) {
-    makeTemplate(recipe);
-  });
+var makeTemplate = function (data) {
+    "use strict";
+    var li = document.createElement("li");
+    var recipeList = document.querySelector(".recipe-list");
+    var compiled = _.template(recipeTemplate);
+    var recipeHtml = compiled(data);
+    li.innerHTML = recipeHtml;
+    recipeList.insertBefore(li, recipeList.firstChild);
 };
 
-var getAllRecipes = function() {
-  fetch('/recipes')
-    .then(function(resp) {
-      console.log(resp);
-      return resp.json();
-    })
-    .then(function(data) {
-      recipes = recipes.concat(data);
-      makeRecipeList();
+var updateRecipeList = function () {
+    "use strict";
+    var recipeData = recipes[recipes.length - 1];
+    makeTemplate(recipeData);
+};
+
+var makeRecipeList = function () {
+    "use strict";
+    recipes.forEach(function (recipe) {
+        makeTemplate(recipe);
     });
-}
+};
 
-ready(function() {
-  getAllRecipes();
-  var form = document.querySelector('form');
+var getAllRecipes = function () {
+    "use strict";
+    fetch("/recipes")
+        .then(function (resp) {
+          console.log(resp);
+            return resp.json();
+        })
+        .then(function (data) {
+            recipes = recipes.concat(data);
+            makeRecipeList();
+        });
+};
 
-  form.addEventListener('submit', function(e) {
-    e.preventDefault();
+ready(function () {
+    "use strict";
+    getAllRecipes();
+    var form = document.querySelector("form");
 
-    var values = getValues();
-    console.log(values);
-    fetch('/recipes', {
-      method: 'post',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
+    form.addEventListener("submit", function (e) {
+        e.preventDefault();
 
-      body: JSON.stringify(values)
-    })
-    .then(function(resp) {
-      return resp.json();
-    })
-    .then(function(createdRecipe){
-      recipes.push(createdRecipe);
-      updateRecipeList();
-    })
-    return false;
-  })
+        var values = getValues();
+        console.log(values);
+        fetch("/recipes", {
+            method: "post",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify(values)
+        })
+            .then(function (resp) {
+                return resp.json();
+            })
+            .then(function (createdRecipe) {
+                recipes.push(createdRecipe);
+                updateRecipeList();
+            });
+        return false;
+    });
 });

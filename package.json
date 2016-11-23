@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha test",
-    "start": "node index.js"
+    "start": "nodemon server/server.js"
   },
   "repository": {
     "type": "git",
@@ -18,8 +18,11 @@
   },
   "homepage": "https://github.com/ASJvine/vod#readme",
   "dependencies": {
+    "body-parser": "^1.15.2",
     "express": "^4.14.0",
-    "lodash": "^4.17.2"
+    "lodash": "^4.17.2",
+    "morgan": "^1.7.0",
+    "underscore": "^1.8.3"
   },
   "devDependencies": {
     "mocha": "^3.1.2"
