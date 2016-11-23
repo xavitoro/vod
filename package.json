@@ -25,6 +25,13 @@
     "underscore": "^1.8.3"
   },
   "devDependencies": {
-    "mocha": "^3.1.2"
+    "babel-cli": "^6.18.0",
+    "babel-core": "^6.18.2",
+    "babel-loader": "^6.2.8",
+    "babel-preset-es2016": "^6.16.0",
+    "babel-preset-react": "^6.16.0",
+    "babel-register": "^6.18.0",
+    "mocha": "^3.1.2",
+    "webpack": "^1.13.3"
   }
 }
