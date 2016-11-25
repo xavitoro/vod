@@ -2,14 +2,41 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
 var _ = require('lodash');
+var morgan = require('morgan');
+
+var recipes = [];
+var id = 0;
+
+var updateId = function(req, res, next) {
+  if (!req.body.id) {
+    id++;
+    req.body.id = id + '';
+  }
+  next();
+};
 
 // .use - GLOBAL MIDDLEWARE - adding middlewares by using use - first it will run the middleware (here 3) and then goes to app.get..
+app.use(morgan('dev'));
 app.use(express.static('client'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-var recipes = [];
-var id = 0;
+app.use(function(err, req, res, next) {
+  if (err) {
+    res.status(500).send(err);
+  }
+});
+
+app.param('id', function(req, res, next, id) {
+  var recipe = _.find(recipes, {id: id});
+
+  if (recipe) {
+    req.recipe = recipe;
+    next();
+  } else {
+    res.send();
+  }
+});
 
 app.get('/recipes', function(req, res){
   res.json(recipes);
@@ -17,15 +44,17 @@ app.get('/recipes', function(req, res){
 
 app.get('/recipes/:id', function(req, res){
   // _ from lodash
-  var recipe = _.find(recipes, {id: req.params.id});
+  // Not needed anymore due to the new middleware .param
+  // var recipe = _.find(recipes, {id: req.params.id});
   res.json(recipe || {});
 });
 
 app.post('/recipes', function(req, res) {
   var recipe = req.body;
-  console.log(recipe)
-  id++;
-  recipe.id = id + '';
+  // console.log(recipe)
+  // moved to the updateID function
+  // id++;
+  // recipe.id = id + '';
 
   recipes.push(recipe);
 
