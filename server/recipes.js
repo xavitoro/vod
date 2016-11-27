@@ -23,50 +23,48 @@ recipeRouter.param('id', function(req, res, next, id) {
   }
 });
 
-recipeRouter.get('/', function(req, res){
-  res.json(recipes);
-});
+recipeRouter.route('/')
+    .get(function(req, res){
+      res.json(recipes);
+    })
+    .post(function(req, res) {
+      var recipe = req.body;
+      recipes.push(recipe);
+      res.json(recipe);
+    })
 
-recipeRouter.get('/:id', function(req, res){
-  res.json(recipe || {});
-});
+recipeRouter.route('/:id')
+    .get(function(req, res){
+      res.json(recipe || {});
+    })
+    .delete(function(req, res) {
+      var recipe = _.findIndex(recipes, {id: req.params.id});
+      if (!recipes[recipe]) {
+        res.send();
+      } else {
+        var deletedRecipe = recipes[recipe];
+        recipes.splice(recipe, 1);
+        res.json(deletedRecipe);
+      }
 
-recipeRouter.post('/', function(req, res) {
-  var recipe = req.body;
-  recipes.push(recipe);
-  res.json(recipe);
-});
+      var update = req.body;
+      if (update.id) {
+        delete update.id
+      }
+    })
+    .put(function(req, res) {
+      var update = req.body;
+      if (update.id) {
+        delete update.id
+      }
 
-recipeRouter.delete('/:id', function(req, res) {
-  var recipe = _.findIndex(recipes, {id: req.params.id});
-  if (!recipes[recipe]) {
-    res.send();
-  } else {
-    var deletedRecipe = recipes[recipe];
-    recipes.splice(recipe, 1);
-    res.json(deletedRecipe);
-  }
-
-  var update = req.body;
-  if (update.id) {
-    delete update.id
-  }
-
-});
-
-recipeRouter.put('/:id', function(req, res) {
-  var update = req.body;
-  if (update.id) {
-    delete update.id
-  }
-
-  var recipe = _.findIndex(recipes, {id: req.params.id});
-  if (!recipes[recipe]) {
-    res.send();
-  } else {
-    var updatedRecipe = _.assign(recipes[recipe], update);
-    res.json(updatedRecipe);
-  }
-});
+      var recipe = _.findIndex(recipes, {id: req.params.id});
+      if (!recipes[recipe]) {
+        res.send();
+      } else {
+        var updatedRecipe = _.assign(recipes[recipe], update);
+        res.json(updatedRecipe);
+      }
+    })
 
 module.exports = recipeRouter;
