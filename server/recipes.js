@@ -23,21 +23,21 @@ recipeRouter.param('id', function(req, res, next, id) {
   }
 });
 
-recipeRouter.get('/recipes', function(req, res){
+recipeRouter.get('/', function(req, res){
   res.json(recipes);
 });
 
-recipeRouter.get('/recipes/:id', function(req, res){
+recipeRouter.get('/:id', function(req, res){
   res.json(recipe || {});
 });
 
-recipeRouter.post('/recipes', function(req, res) {
+recipeRouter.post('/', function(req, res) {
   var recipe = req.body;
   recipes.push(recipe);
   res.json(recipe);
 });
 
-recipeRouter.delete('/recipes/:id', function(req, res) {
+recipeRouter.delete('/:id', function(req, res) {
   var recipe = _.findIndex(recipes, {id: req.params.id});
   if (!recipes[recipe]) {
     res.send();
@@ -54,7 +54,7 @@ recipeRouter.delete('/recipes/:id', function(req, res) {
 
 });
 
-recipeRouter.put('/recipes/:id', function(req, res) {
+recipeRouter.put('/:id', function(req, res) {
   var update = req.body;
   if (update.id) {
     delete update.id
