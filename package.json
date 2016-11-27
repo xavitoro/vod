@@ -4,7 +4,7 @@
   "description": "vod platform containing food content",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test",
+    "test": "mocha server/spec.js",
     "start": "nodemon server/server.js"
   },
   "repository": {
@@ -31,7 +31,9 @@
     "babel-preset-es2016": "^6.16.0",
     "babel-preset-react": "^6.16.0",
     "babel-register": "^6.18.0",
+    "chai": "^3.5.0",
     "mocha": "^3.1.2",
+    "supertest": "^2.0.1",
     "webpack": "^1.13.3"
   }
 }
