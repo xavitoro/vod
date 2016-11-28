@@ -1,8 +1,9 @@
 var app = require('./server');
 var request = require('supertest');
-var expect = require('chai').expect;
+var expectChai = require('chai').expect;
+require('colors');
 
-describe('[RECIPES]', function(){
+describe('[RECIPES]'.bgMagenta, function(){
   var recipe = {
     "recipeTitle": "Pa amb tomàquet",
     "recipeSlug": "pa-amb-tomaquet",
@@ -68,7 +69,8 @@ describe('[RECIPES]', function(){
         "stepDescription": "Spread with tomato first, add salt and pepper and finally the olive oil.",
         "stepTips": "You could also spread with garlic before the tomato to obtain a more tasty flavor."
       }
-    ]
+    ],
+    "id": "1"
   };
 
   it('should get all recipes', function(done) {
@@ -78,7 +80,19 @@ describe('[RECIPES]', function(){
       .expect('Content-Type', /json/)
       .expect(200)
       .end(function(err, resp) {
-        expect(resp.body).to.be.an('array');
+        expectChai(resp.body).to.be.an('array');
+        done();
+      })
+  });
+
+  it('should get one recipe', function(done) {
+    request(app)
+      .get('/recipes/1')
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .end(function(err, resp) {
+        expectChai(resp.body).to.be.an('object');
         done();
       })
   });
@@ -93,11 +107,48 @@ describe('[RECIPES]', function(){
       .expect(201)
       .end(function(err, resp) {
         var paAmbTomaquet = resp.body;
-        expect(paAmbTomaquet).to.be.an('object');
-        expect(paAmbTomaquet).to.eql(recipe); //.equal WILL NOT work because you're doing {}==={} whereas .eql will do a deep equals and check to see if they all have the same properties and same values
+        expectChai(paAmbTomaquet).to.be.an('object');
+        expectChai(paAmbTomaquet).to.eql(recipe); //.equal WILL NOT work because you're doing {}==={} whereas .eql will do a deep equals and check to see if they all have the same properties and same values
         done();
       })
   });
 
-  // Create the Delete and Update Tests!!
+
+  it('should delete a recipe', function(done) {
+    request(app)
+      .post('/recipes')
+      .send(recipe)
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .end(function(err, resp) {
+        var paAmbTomaquet = resp.body;
+        request(app)
+          .delete('/recipes/' + paAmbTomaquet.id)
+          .end(function(err, resp) {
+            var deletedRecipe = resp.body
+            expectChai(deletedRecipe).to.eql(paAmbTomaquet);
+            done();
+          });
+      })
+  });
+
+  it('should update a recipe', function(done) {
+    request(app)
+      .post('/recipes')
+      .send(recipe)
+      .set('Accept', 'application/json')
+      .end(function(err, resp) {
+        var recipe = resp.body;
+        request(app)
+          .put('/recipes/' + recipe.id)
+          .send({
+            recipeTitle: 'Guacamole'
+          })
+          .end(function(err, resp) {
+            var recipeTitle = resp.body.recipeTitle
+            expectChai(recipeTitle).to.equal('Guacamole');
+            done();
+          });
+      })
+  });
 });

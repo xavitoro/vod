@@ -27,7 +27,7 @@ recipeRouter.route('/')
     .get(function(req, res){
       res.json(recipes);
     })
-    .post(function(req, res) {
+    .post(updateId, function(req, res) {
       var recipe = req.body;
       recipes.push(recipe);
       res.json(recipe);
@@ -42,9 +42,8 @@ recipeRouter.route('/:id')
       if (!recipes[recipe]) {
         res.send();
       } else {
-        var deletedRecipe = recipes[recipe];
         recipes.splice(recipe, 1);
-        res.json(deletedRecipe);
+        res.json(req.recipe);
       }
 
       var update = req.body;
