@@ -1,26 +1,18 @@
 var express = require('express');
-var bodyParser = require('body-parser');
 var app = express();
-var _ = require('lodash');
-var morgan = require('morgan');
+var api = require('./api/api');
+var err = require('./middleware/err')
 
-var recipeRouter = require('./recipes');
+// setup the app middlware
+require('./middleware/appMiddleware')(app);
 
-// .use - GLOBAL MIDDLEWARE - adding middlewares by using use - first it will run the middleware (here 3) and then goes to app.get..
-app.use(morgan('dev'));
-app.use(express.static('client'));
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
+// setup the api
+app.use('/api', api);
 
-// this is called mounting. when ever a req comes in for
-// '/recipe' we want to use this router
-app.use('/recipes', recipeRouter);
-
-app.use(function(err, req, res, next) {
-  if (err) {
-    console.log(err.message);
-    res.status(500).send(err);
-  }
-});
+// set up global error handling
+// // pattern 1
+// app.use(err);
+// pattern 2
+app.use(err());
 
 module.exports = app;

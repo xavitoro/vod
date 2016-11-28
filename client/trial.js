@@ -591,7 +591,7 @@ var makeRecipeList = function () {
 
 var getAllRecipes = function () {
     "use strict";
-    fetch("/recipes")
+    fetch("/api/recipes")
         .then(function (resp) {
           console.log(resp);
             return resp.json();
@@ -612,7 +612,7 @@ ready(function () {
 
         var values = getValues();
         console.log(values);
-        fetch("/recipes", {
+        fetch("/api/recipes", {
             method: "post",
             headers: {
                 "Accept": "application/json",

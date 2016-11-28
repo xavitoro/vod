@@ -75,7 +75,7 @@ describe('[RECIPES]'.bgMagenta, function(){
 
   it('should get all recipes', function(done) {
     request(app)
-      .get('/recipes')
+      .get('/api/recipes')
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(200)
@@ -87,7 +87,7 @@ describe('[RECIPES]'.bgMagenta, function(){
 
   it('should get one recipe', function(done) {
     request(app)
-      .get('/recipes/1')
+      .get('/api/recipes/1')
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(200)
@@ -100,7 +100,7 @@ describe('[RECIPES]'.bgMagenta, function(){
   it('should create a recipe', function(done) {
 
     request(app)
-      .post('/recipes')
+      .post('/api/recipes')
       .send(recipe)
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -116,14 +116,14 @@ describe('[RECIPES]'.bgMagenta, function(){
 
   it('should delete a recipe', function(done) {
     request(app)
-      .post('/recipes')
+      .post('/api/recipes')
       .send(recipe)
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .end(function(err, resp) {
         var paAmbTomaquet = resp.body;
         request(app)
-          .delete('/recipes/' + paAmbTomaquet.id)
+          .delete('/api/recipes/' + paAmbTomaquet.id)
           .end(function(err, resp) {
             var deletedRecipe = resp.body
             expectChai(deletedRecipe).to.eql(paAmbTomaquet);
@@ -134,13 +134,13 @@ describe('[RECIPES]'.bgMagenta, function(){
 
   it('should update a recipe', function(done) {
     request(app)
-      .post('/recipes')
+      .post('/api/recipes')
       .send(recipe)
       .set('Accept', 'application/json')
       .end(function(err, resp) {
         var recipe = resp.body;
         request(app)
-          .put('/recipes/' + recipe.id)
+          .put('/api/recipes/' + recipe.id)
           .send({
             recipeTitle: 'Guacamole'
           })
